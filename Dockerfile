@@ -9,8 +9,13 @@ RUN apt-get update && apt-get install -y \
     libzip-dev
 RUN docker-php-ext-install mysqli zip
 
-# Apache'nin "mod_rewrite" özelliğini aktif et (güzel URL'ler için)
+# Apache'nin "mod_rewrite" özelliğini aktif et
 RUN a2enmod rewrite
+
+
+ENV APACHE_DOCUMENT_ROOT /var/www/html/fatihprograms/webproje
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
