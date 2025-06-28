@@ -18,7 +18,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Çalışma dizinini ayarla
 WORKDIR /var/www/html
 
-
+# GitHub'daki tüm proje dosyalarını sunucunun ana web klasörüne kopyala
 COPY . /var/www/html/
+
+RUN composer install --no-dev --optimize-autoloader
 
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
