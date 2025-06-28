@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # 1. PHP ve Apache Servisimiz
+  php-app:
+    build: .
+    container_name: reverseweb-app
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html/
+    depends_on:
+      - db
+
+  # 2. Veritabanı Servisimiz (MySQL)
+  db:
+    image: mysql:8.0
+    container_name: reverseweb-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: reverseweb_db
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  # 3. Veritabanı Yönetim Arayüzü (PhpMyAdmin)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: reverseweb-phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    depends_on:
+      - db
+
+volumes:
+  mysql-data:
