@@ -61,6 +61,7 @@ Setting up the project is easy thanks to Docker. Follow these steps:
     You're all set! Navigate to **`http://localhost`** in your browser to start using the application.ü
 
    ## (Optional but Recommended for Using Burpsuite) Editing Your Hosts File
+   
 
 Some modern browsers treat `localhost` with special security rules, which can sometimes interfere with testing certain vulnerabilities (like cookie-based attacks or CORS). To get the most realistic experience, it's recommended to access the application through a custom domain name like `reverseweb.local`.
 
